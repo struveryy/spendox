@@ -1,5 +1,5 @@
 
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { BarChart3, Calendar, CreditCard, DollarSign, TrendingDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -17,17 +17,18 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const Index = () => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
+  import { useTransactionStore } from "@/stores/transactionStore";
+  import { useBudgetStore } from "@/stores/budgetStore";
+
   const { transactions } = useTransactionStore();
   const { settings } = useBudgetStore();
-  
-  // Calculate total spent this month
+
   const currentMonth = new Date().getMonth();
   const totalSpentThisMonth = transactions
-    .filter(t => 
-      t.type === 'expense' && 
+    .filter((t: { type: string; date: string; amount: number }) => 
       new Date(t.date).getMonth() === currentMonth
     )
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum: number, t: { amount: number }) => sum + t.amount, 0);
 
   // Calculate month-over-month spending trend
   const lastMonthSpent = transactions
