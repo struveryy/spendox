@@ -101,7 +101,7 @@ export default function AppSidebar() {
             {(!collapsed || isMobile) && (
               <div className="flex items-center gap-2">
                 <img 
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=50&h=50&fit=crop" 
+                  src="/public/logospend.png" 
                   alt="SpendoX Logo" 
                   className="h-8 w-8 rounded-full object-cover"
                 />
@@ -151,7 +151,7 @@ export default function AppSidebar() {
               <div className="flex items-center gap-3 px-3">
                 <Avatar>
                   <AvatarImage
-                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=50&h=50&fit=crop"
+                    src="/public/suhani.jpeg"
                     alt="Suhani"
                   />
                   <AvatarFallback>S</AvatarFallback>
