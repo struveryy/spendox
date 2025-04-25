@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { BarChart3, Calendar, CreditCard, DollarSign, TrendingDown } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { StatCard } from "@/components/ui/stat-card";
@@ -63,8 +63,7 @@ const Index = () => {
           description="₹3,600 remaining"
           icon={CreditCard}
           iconClassName="bg-secondary"
-          className="animate-entrance"
-          style={{ animationDelay: "50ms" }}
+          className="animate-entrance delay-50"
         />
         <StatCard
           title="Upcoming Bills"
@@ -72,8 +71,7 @@ const Index = () => {
           description="3 payments due soon"
           icon={Calendar}
           iconClassName="bg-accent"
-          className="animate-entrance"
-          style={{ animationDelay: "100ms" }}
+          className="animate-entrance delay-100"
         />
         <StatCard
           title="Saving Potential"
@@ -81,8 +79,7 @@ const Index = () => {
           description="Based on your spending"
           icon={TrendingDown}
           iconClassName="bg-lavender"
-          className="animate-entrance"
-          style={{ animationDelay: "150ms" }}
+          className="animate-entrance delay-150"
         />
       </div>
 
@@ -100,10 +97,10 @@ const Index = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <SavingSuggestion />
-        <BudgetStatus className="md:col-span-1 animate-entrance" style={{ animationDelay: "400ms" }} />
+        <BudgetStatus className="md:col-span-1 animate-entrance delay-400" />
         
         {/* Weekly Insight Card */}
-        <Card className="animate-entrance" style={{ animationDelay: "500ms" }}>
+        <Card className="animate-entrance delay-500">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="p-3 bg-secondary rounded-full">

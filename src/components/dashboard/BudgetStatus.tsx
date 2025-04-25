@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Progress } from "@/components/ui/progress";
+import { cn } from "@/lib/utils";
 
 interface BudgetStatusProps {
   className?: string;
@@ -23,7 +24,7 @@ export default function BudgetStatus({ className }: BudgetStatusProps) {
   const isOnTrack = dailyBudget >= averageDailySpend;
   
   return (
-    <Card className={className}>
+    <Card className={cn(className)}>
       <CardHeader className="pb-2">
         <CardTitle className="flex items-center">
           <DollarSign className="h-4 w-4 mr-2 text-primary" />

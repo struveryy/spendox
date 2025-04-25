@@ -77,7 +77,6 @@ export default function SpendingOverview() {
               <Progress 
                 value={category.percentage} 
                 className={`h-2 ${category.percentage > 100 ? 'bg-red-100' : 'bg-secondary'}`}
-                indicatorClassName={`${category.percentage > 100 ? 'bg-red-500' : category.color}`}
               />
               <p className="text-xs text-muted-foreground mt-1">
                 {category.percentage >= 100 
