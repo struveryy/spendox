@@ -17,7 +17,7 @@ import { useBudgetStore } from "@/stores/budgetStore";
 
 const Index = () => {
   const { toast } = useToast();
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(); // eslint-disable-line @typescript-eslint/no-unused-vars
 
   const { transactions } = useTransactionStore();
   const { settings } = useBudgetStore();
@@ -35,7 +35,7 @@ const Index = () => {
       t.type === 'expense' && 
       new Date(t.date).getMonth() === (currentMonth === 0 ? 11 : currentMonth - 1)
     )
-    .reduce((sum, t) => sum + t.amount, 0);
+    .reduce((sum: number, t: { amount: number }) => sum + t.amount, 0);
 
   const spendingTrend = lastMonthSpent ? 
     ((totalSpentThisMonth - lastMonthSpent) / lastMonthSpent) * 100 : 0;
