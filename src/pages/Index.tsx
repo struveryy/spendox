@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { BarChart3, Calendar, CreditCard, DollarSign, TrendingDown } from "lucide-react";
@@ -13,12 +12,12 @@ import BudgetStatus from "@/components/dashboard/BudgetStatus";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useTransactionStore } from "@/stores/transactionStore";
+import { useBudgetStore } from "@/stores/budgetStore";
 
 const Index = () => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
-  import { useTransactionStore } from "@/stores/transactionStore";
-  import { useBudgetStore } from "@/stores/budgetStore";
 
   const { transactions } = useTransactionStore();
   const { settings } = useBudgetStore();
