@@ -1,112 +1,80 @@
 
-import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from "recharts";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useIsMobile } from "@/hooks/use-mobile";
+import React from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { BarChart3 } from 'lucide-react';
+import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 
-// Spending data for the last 3 months
-const spendingData = [
-  { month: "Mar", week: 1, food: 1200, shopping: 800, transport: 300, entertainment: 500, education: 1000 },
-  { month: "Mar", week: 2, food: 1000, shopping: 1200, transport: 400, entertainment: 300, education: 1000 },
-  { month: "Mar", week: 3, food: 1500, shopping: 600, transport: 500, entertainment: 400, education: 1000 },
-  { month: "Mar", week: 4, food: 1300, shopping: 900, transport: 350, entertainment: 600, education: 1000 },
-  { month: "Apr", week: 1, food: 900, shopping: 1100, transport: 450, entertainment: 550, education: 1200 },
-  { month: "Apr", week: 2, food: 1100, shopping: 700, transport: 400, entertainment: 300, education: 1200 },
-  { month: "Apr", week: 3, food: 1400, shopping: 950, transport: 300, entertainment: 400, education: 1200 },
-  { month: "Apr", week: 4, food: 1200, shopping: 850, transport: 350, entertainment: 500, education: 1200 },
-  { month: "May", week: 1, food: 850, shopping: 1000, transport: 400, entertainment: 450, education: 1000 },
-  { month: "May", week: 2, food: 950, shopping: 750, transport: 350, entertainment: 350, education: 1000 },
-  { month: "May", week: 3, food: 1050, shopping: 800, transport: 300, entertainment: 400, education: 1000 },
+const data = [
+  { month: 'Mar', week: 1, food: 600, shopping: 400, transport: 200, entertainment: 300, education: 500 },
+  { month: 'Mar', week: 2, food: 700, shopping: 600, transport: 300, entertainment: 400, education: 500 },
+  { month: 'Mar', week: 3, food: 800, shopping: 500, transport: 400, entertainment: 200, education: 500 },
+  { month: 'Mar', week: 4, food: 900, shopping: 800, transport: 500, entertainment: 600, education: 500 },
+  { month: 'Apr', week: 1, food: 1000, shopping: 700, transport: 600, entertainment: 500, education: 500 },
+  { month: 'Apr', week: 2, food: 1100, shopping: 900, transport: 700, entertainment: 400, education: 500 },
+  { month: 'Apr', week: 3, food: 1200, shopping: 1000, transport: 800, entertainment: 300, education: 500 },
+  { month: 'Apr', week: 4, food: 1300, shopping: 1100, transport: 900, entertainment: 700, education: 500 },
+  { month: 'May', week: 1, food: 1400, shopping: 1200, transport: 1000, entertainment: 900, education: 500 },
+  { month: 'May', week: 2, food: 1500, shopping: 1300, transport: 1100, entertainment: 700, education: 500 },
+  { month: 'May', week: 3, food: 1600, shopping: 1400, transport: 1200, entertainment: 800, education: 500 },
+  { month: 'May', week: 4, food: 1700, shopping: 1500, transport: 1300, entertainment: 900, education: 500 },
 ];
 
-for (const data of spendingData) {
-  data.total = data.food + data.shopping + data.transport + data.entertainment + data.education;
-}
+// Calculate totals for each data point
+const dataWithTotal = data.map(item => ({
+  ...item,
+  total: item.food + item.shopping + item.transport + item.entertainment + item.education
+}));
 
-export default function SpendingChart() {
-  const isMobile = useIsMobile();
-  
+const SpendingChart = () => {
   return (
-    <Card className="col-span-full animate-entrance">
-      <CardHeader>
-        <CardTitle>Spending Trends</CardTitle>
-        <CardDescription>Your weekly spending over the last 3 months</CardDescription>
+    <Card className="col-span-3 animate-entrance">
+      <CardHeader className="flex flex-row items-center justify-between pb-2">
+        <CardTitle className="text-md font-medium flex items-center">
+          <BarChart3 className="mr-2 h-4 w-4 text-primary" />
+          Spending Trends
+        </CardTitle>
+        <div className="text-xs font-medium">Last 3 Months</div>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={isMobile ? 200 : 300}>
-          <AreaChart
-            data={spendingData}
-            margin={{
-              top: 10,
-              right: 10,
-              left: 0,
-              bottom: 0,
-            }}
-          >
-            <defs>
-              <linearGradient id="colorFood" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#c1f0c1" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#c1f0c1" stopOpacity={0}/>
-              </linearGradient>
-              <linearGradient id="colorShopping" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#e0d3f5" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#e0d3f5" stopOpacity={0}/>
-              </linearGradient>
-              <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#1a2a3a" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#1a2a3a" stopOpacity={0}/>
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-            <XAxis 
-              dataKey={(v) => `${v.month} W${v.week}`} 
-              tick={{ fontSize: 12 }} 
-              tickMargin={8}
-              interval={isMobile ? 2 : 0}
-            />
-            <YAxis 
-              tick={{ fontSize: 12 }} 
-              tickFormatter={(value) => `₹${value}`} 
-              width={50}
-            />
-            <Tooltip 
-              formatter={(value: number, name: string) => [`₹${value}`, name.charAt(0).toUpperCase() + name.slice(1)]}
-              contentStyle={{ 
-                borderRadius: '8px', 
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)', 
-                border: 'none' 
-              }}
-              labelFormatter={(label) => `Week: ${label}`}
-            />
-            <Area 
-              type="monotone" 
-              dataKey="total" 
-              name="Total" 
-              stroke="#1a2a3a" 
-              strokeWidth={2}
-              fillOpacity={0.2}
-              fill="url(#colorTotal)" 
-            />
-            <Area 
-              type="monotone" 
-              dataKey="food" 
-              name="Food" 
-              stroke="#76bb76" 
-              fill="url(#colorFood)" 
-              strokeWidth={1.5}
-              fillOpacity={1}
-            />
-            <Area 
-              type="monotone" 
-              dataKey="shopping" 
-              name="Shopping" 
-              stroke="#b39ddb" 
-              fill="url(#colorShopping)" 
-              strokeWidth={1.5}
-              fillOpacity={1}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+        <div className="h-[300px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={dataWithTotal} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+              <XAxis 
+                dataKey={(v) => `${v.month} W${v.week}`} 
+                scale="band" 
+                tickLine={false}
+                axisLine={false}
+                className="text-xs" 
+              />
+              <YAxis 
+                tickFormatter={(value) => `₹${value}`} 
+                tickLine={false}
+                axisLine={false}
+                className="text-xs"
+              />
+              <Tooltip 
+                formatter={(value) => [`₹${value}`, ``]}
+                labelFormatter={(value) => `${value}`}
+                contentStyle={{
+                  backgroundColor: 'white',
+                  borderRadius: '0.5rem',
+                  border: '1px solid #e2e8f0',
+                  boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+                }}
+              />
+              <Legend />
+              <Bar dataKey="food" name="Food" fill="#8884d8" radius={[4, 4, 0, 0]} maxBarSize={20} />
+              <Bar dataKey="shopping" name="Shopping" fill="#82ca9d" radius={[4, 4, 0, 0]} maxBarSize={20} />
+              <Bar dataKey="transport" name="Transport" fill="#ffc658" radius={[4, 4, 0, 0]} maxBarSize={20} />
+              <Bar dataKey="entertainment" name="Entertainment" fill="#ff8042" radius={[4, 4, 0, 0]} maxBarSize={20} />
+              <Bar dataKey="education" name="Education" fill="#0088fe" radius={[4, 4, 0, 0]} maxBarSize={20} />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </CardContent>
     </Card>
   );
-}
+};
+
+export default SpendingChart;
