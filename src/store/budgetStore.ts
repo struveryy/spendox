@@ -14,15 +14,15 @@ export const useBudgetStore = create<BudgetStore>()(
   persist(
     (set) => ({
       budgets: [
-        { category: "Food & Dining", amount: 1000, spent: 0, color: "bg-primary" },
-        { category: "Shopping", amount: 600, spent: 0, color: "bg-lavender" },
-        { category: "Transportation", amount: 500, spent: 0, color: "bg-paleyellow" },
-        { category: "Entertainment", amount: 300, spent: 0, color: "bg-accent" },
-        { category: "Education", amount: 500, spent: 0, color: "bg-cyan-500" },
+        { category: "Food & Dining", amount: 10000, spent: 0, color: "bg-primary" },
+        { category: "Shopping", amount: 6000, spent: 0, color: "bg-lavender" },
+        { category: "Transportation", amount: 5000, spent: 0, color: "bg-paleyellow" },
+        { category: "Entertainment", amount: 3000, spent: 0, color: "bg-accent" },
+        { category: "Education", amount: 5000, spent: 0, color: "bg-cyan-500" },
       ],
       settings: {
-        monthlyBudget: 12000,
-        currency: "USD",
+        monthlyBudget: 120000,
+        currency: "INR",
         notifications: true,
       },
       updateBudget: (category, amount) =>

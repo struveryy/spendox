@@ -17,9 +17,41 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const Index = () => {
   const { toast } = useToast();
   const isMobile = useIsMobile();
+  const { transactions } = useTransactionStore();
+  const { settings } = useBudgetStore();
   
+  // Calculate total spent this month
+  const currentMonth = new Date().getMonth();
+  const totalSpentThisMonth = transactions
+    .filter(t => 
+      t.type === 'expense' && 
+      new Date(t.date).getMonth() === currentMonth
+    )
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  // Calculate month-over-month spending trend
+  const lastMonthSpent = transactions
+    .filter(t => 
+      t.type === 'expense' && 
+      new Date(t.date).getMonth() === (currentMonth === 0 ? 11 : currentMonth - 1)
+    )
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  const spendingTrend = lastMonthSpent ? 
+    ((totalSpentThisMonth - lastMonthSpent) / lastMonthSpent) * 100 : 0;
+
+  // Calculate upcoming bills total
+  const upcomingBills = transactions
+    .filter(t => 
+      t.type === 'expense' && 
+      new Date(t.date) > new Date()
+    )
+    .reduce((sum, t) => sum + t.amount, 0);
+
+  // Calculate potential savings
+  const savingPotential = Math.max(0, settings.monthlyBudget - totalSpentThisMonth);
+
   useEffect(() => {
-    // Welcome toast on first load
     toast({
       title: "Welcome back, Suhani!",
       description: "Your finances are looking good today.",
@@ -51,31 +83,31 @@ const Index = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <StatCard
           title="Total Spent"
-          value="₹8,400"
-          trend={-5}
+          value={`₹${totalSpentThisMonth.toLocaleString()}`}
+          trend={Math.round(spendingTrend)}
           trendLabel="vs last month"
           icon={DollarSign}
           className="animate-entrance"
         />
         <StatCard
           title="Monthly Budget"
-          value="₹12,000"
-          description="₹3,600 remaining"
+          value={`₹${settings.monthlyBudget.toLocaleString()}`}
+          description={`₹${(settings.monthlyBudget - totalSpentThisMonth).toLocaleString()} remaining`}
           icon={CreditCard}
           iconClassName="bg-secondary"
           className="animate-entrance delay-50"
         />
         <StatCard
           title="Upcoming Bills"
-          value="₹9,998"
-          description="3 payments due soon"
+          value={`₹${upcomingBills.toLocaleString()}`}
+          description={`${transactions.filter(t => new Date(t.date) > new Date()).length} payments due soon`}
           icon={Calendar}
           iconClassName="bg-accent"
           className="animate-entrance delay-100"
         />
         <StatCard
           title="Saving Potential"
-          value="₹1,800"
+          value={`₹${savingPotential.toLocaleString()}`}
           description="Based on your spending"
           icon={TrendingDown}
           iconClassName="bg-lavender"
