@@ -1,4 +1,3 @@
-
 import {
   Table,
   TableBody,
@@ -8,6 +7,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { getCurrencySymbol } from "@/utils/currencies";
 
 // Mock data for transactions
 const transactions = [
@@ -53,7 +53,13 @@ const transactions = [
   },
 ];
 
-export function TransactionsTable() {
+interface TransactionsTableProps {
+  currency?: string;
+}
+
+export function TransactionsTable({ currency = "USD" }: TransactionsTableProps) {
+  const currencySymbol = getCurrencySymbol(currency);
+
   return (
     <div className="rounded-md border">
       <Table>
@@ -75,7 +81,7 @@ export function TransactionsTable() {
               <TableCell className={`text-right ${
                 transaction.type === 'income' ? 'text-green-600' : 'text-red-600'
               }`}>
-                ₹{Math.abs(transaction.amount)}
+                {currencySymbol}{Math.abs(transaction.amount)}
               </TableCell>
               <TableCell>
                 <Badge variant={transaction.type === 'income' ? 'default' : 'secondary'}>

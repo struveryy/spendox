@@ -1,16 +1,17 @@
-
 import { ArrowRight, DollarSign, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { getCurrencySymbol } from "@/utils/currencies";
 
 interface BudgetStatusProps {
   className?: string;
+  currency?: string;
 }
 
-export default function BudgetStatus({ className }: BudgetStatusProps) {
+export default function BudgetStatus({ className, currency = "USD" }: BudgetStatusProps) {
   // Budget data
   const budget = 12000;
   const spent = 8400;
@@ -22,6 +23,8 @@ export default function BudgetStatus({ className }: BudgetStatusProps) {
   const dailyBudget = remaining / daysLeftInMonth;
   const averageDailySpend = spent / (30 - daysLeftInMonth);
   const isOnTrack = dailyBudget >= averageDailySpend;
+  
+  const currencySymbol = getCurrencySymbol(currency);
   
   return (
     <Card className={cn(className)}>
@@ -45,11 +48,11 @@ export default function BudgetStatus({ className }: BudgetStatusProps) {
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-muted rounded-lg p-3 text-center">
               <p className="text-xs text-muted-foreground">Spent</p>
-              <p className="text-xl font-bold">₹{spent.toLocaleString()}</p>
+              <p className="text-xl font-bold">{currencySymbol}{spent.toLocaleString()}</p>
             </div>
             <div className="bg-muted rounded-lg p-3 text-center">
               <p className="text-xs text-muted-foreground">Remaining</p>
-              <p className="text-xl font-bold text-primary">₹{remaining.toLocaleString()}</p>
+              <p className="text-xl font-bold text-primary">{currencySymbol}{remaining.toLocaleString()}</p>
             </div>
           </div>
           
@@ -62,8 +65,8 @@ export default function BudgetStatus({ className }: BudgetStatusProps) {
                 </p>
                 <p className="text-xs text-muted-foreground">
                   {isOnTrack 
-                    ? `You have ₹${Math.round(dailyBudget)} left to spend per day.` 
-                    : `You're spending ₹${Math.round(averageDailySpend - dailyBudget)} too much per day.`
+                    ? `You have ${currencySymbol}${Math.round(dailyBudget)} left to spend per day.` 
+                    : `You're spending ${currencySymbol}${Math.round(averageDailySpend - dailyBudget)} too much per day.`
                   }
                 </p>
               </div>

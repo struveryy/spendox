@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { currencies } from "@/utils/currencies";
 
 const budgetFormSchema = z.object({
   monthlyBudget: z.string().min(1, "Monthly budget is required"),
@@ -35,7 +36,7 @@ const Settings = () => {
     resolver: zodResolver(budgetFormSchema),
     defaultValues: {
       monthlyBudget: "12000",
-      currency: "INR",
+      currency: "USD",
       notificationPreference: "daily",
     },
   });
@@ -43,7 +44,7 @@ const Settings = () => {
   function onSubmit(values: z.infer<typeof budgetFormSchema>) {
     toast({
       title: "Budget settings updated",
-      description: `Monthly budget set to ${values.currency} ${values.monthlyBudget}`,
+      description: `Monthly budget set to ${currencies.find(c => c.code === values.currency)?.symbol}${values.monthlyBudget}`,
     });
   }
 
@@ -93,9 +94,11 @@ const Settings = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="INR">Indian Rupee (₹)</SelectItem>
-                        <SelectItem value="USD">US Dollar ($)</SelectItem>
-                        <SelectItem value="EUR">Euro (€)</SelectItem>
+                        {currencies.map((currency) => (
+                          <SelectItem key={currency.code} value={currency.code}>
+                            {currency.symbol} - {currency.name} ({currency.code})
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
