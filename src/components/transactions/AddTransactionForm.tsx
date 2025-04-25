@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { useTransactionStore } from "@/store/transactionStore";
 
 const formSchema = z.object({
   description: z.string().min(2, "Description must be at least 2 characters"),
@@ -34,6 +35,7 @@ interface AddTransactionFormProps {
 
 export function AddTransactionForm({ onSuccess }: AddTransactionFormProps) {
   const { toast } = useToast();
+  const addTransaction = useTransactionStore((state) => state.addTransaction);
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,10 +48,19 @@ export function AddTransactionForm({ onSuccess }: AddTransactionFormProps) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    addTransaction({
+      description: values.description,
+      amount: values.type === "expense" ? -Number(values.amount) : Number(values.amount),
+      category: values.category,
+      type: values.type as "income" | "expense",
+      date: new Date().toISOString(),
+    });
+
     toast({
       title: "Transaction added",
-      description: `Added ${values.description} for ₹${values.amount}`,
+      description: `Added ${values.description} for ${values.amount}`,
     });
+    
     onSuccess();
     form.reset();
   }
