@@ -1,5 +1,6 @@
 
 import { Helmet } from "react-helmet-async";
+import SavingTips from "@/components/suggestions/SavingTips";
 
 const Suggestions = () => {
   return (
@@ -13,12 +14,7 @@ const Suggestions = () => {
         <p className="text-muted-foreground">Smart tips to save money</p>
       </header>
 
-      <div className="rounded-lg border p-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4">Money Saving Tips</h2>
-        <p className="text-muted-foreground mb-4">
-          This page will provide personalized suggestions to help you reduce expenses and save more.
-        </p>
-      </div>
+      <SavingTips />
     </>
   );
 };

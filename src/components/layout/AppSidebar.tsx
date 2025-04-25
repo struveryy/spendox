@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -14,6 +13,7 @@ import {
   ChevronLeft
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useIsMobile } from '@/hooks/use-mobile';
 
 type NavItem = {
@@ -92,19 +92,19 @@ export default function AppSidebar() {
       )}
 
       {/* Sidebar */}
-      <aside
-        className={cn(
-          'h-screen bg-sidebar fixed top-0 transition-all duration-300 z-40 border-r border-border',
-          isMobile ? `${mobilePosition} w-72` : sidebarWidth
-        )}
-      >
+      <aside className={cn(
+        'h-screen bg-sidebar fixed top-0 transition-all duration-300 z-40 border-r border-border',
+        isMobile ? `${mobilePosition} w-72` : sidebarWidth
+      )}>
         <div className="flex flex-col h-full p-4">
           <div className="flex items-center justify-between mb-8 mt-2">
             {(!collapsed || isMobile) && (
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold">S</span>
-                </div>
+                <img 
+                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=50&h=50&fit=crop" 
+                  alt="SpendoX Logo" 
+                  className="h-8 w-8 rounded-full object-cover"
+                />
                 <h1 className="text-xl font-bold">SpendoX</h1>
               </div>
             )}
@@ -149,9 +149,13 @@ export default function AppSidebar() {
           {(!collapsed || isMobile) && (
             <div className="mt-auto pt-4 border-t border-border">
               <div className="flex items-center gap-3 px-3">
-                <div className="h-10 w-10 rounded-full bg-lavender flex items-center justify-center">
-                  <span className="font-medium text-navytext">S</span>
-                </div>
+                <Avatar>
+                  <AvatarImage
+                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=50&h=50&fit=crop"
+                    alt="Suhani"
+                  />
+                  <AvatarFallback>S</AvatarFallback>
+                </Avatar>
                 <div>
                   <p className="font-medium text-sm">Suhani</p>
                   <p className="text-xs text-muted-foreground">Student</p>

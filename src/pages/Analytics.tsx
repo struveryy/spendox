@@ -1,5 +1,7 @@
 
 import { Helmet } from "react-helmet-async";
+import SpendingTrends from "@/components/analytics/SpendingTrends";
+import CategoryBreakdown from "@/components/analytics/CategoryBreakdown";
 
 const Analytics = () => {
   return (
@@ -13,11 +15,9 @@ const Analytics = () => {
         <p className="text-muted-foreground">Understand your spending patterns</p>
       </header>
 
-      <div className="rounded-lg border p-8 text-center">
-        <h2 className="text-2xl font-semibold mb-4">Analytics Dashboard</h2>
-        <p className="text-muted-foreground mb-4">
-          This page will contain detailed spending analytics, charts, and financial insights.
-        </p>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+        <SpendingTrends />
+        <CategoryBreakdown />
       </div>
     </>
   );
