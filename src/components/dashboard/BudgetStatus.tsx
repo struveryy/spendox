@@ -11,7 +11,7 @@ interface BudgetStatusProps {
   currency?: string;
 }
 
-export default function BudgetStatus({ className, currency = "USD" }: BudgetStatusProps) {
+export default function BudgetStatus({ className }: { className?: string }) {
   // Budget data
   const budget = 12000;
   const spent = 8400;
@@ -24,7 +24,7 @@ export default function BudgetStatus({ className, currency = "USD" }: BudgetStat
   const averageDailySpend = spent / (30 - daysLeftInMonth);
   const isOnTrack = dailyBudget >= averageDailySpend;
   
-  const currencySymbol = getCurrencySymbol(currency);
+  const currencySymbol = getCurrencySymbol("INR");
   
   return (
     <Card className={cn(className)}>
@@ -48,11 +48,11 @@ export default function BudgetStatus({ className, currency = "USD" }: BudgetStat
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-muted rounded-lg p-3 text-center">
               <p className="text-xs text-muted-foreground">Spent</p>
-              <p className="text-xl font-bold">{currencySymbol}{spent.toLocaleString()}</p>
+              <p className="text-xl font-bold">₹{spent.toLocaleString()}</p>
             </div>
             <div className="bg-muted rounded-lg p-3 text-center">
               <p className="text-xs text-muted-foreground">Remaining</p>
-              <p className="text-xl font-bold text-primary">{currencySymbol}{remaining.toLocaleString()}</p>
+              <p className="text-xl font-bold text-primary">₹{remaining.toLocaleString()}</p>
             </div>
           </div>
           
@@ -65,8 +65,8 @@ export default function BudgetStatus({ className, currency = "USD" }: BudgetStat
                 </p>
                 <p className="text-xs text-muted-foreground">
                   {isOnTrack 
-                    ? `You have ${currencySymbol}${Math.round(dailyBudget)} left to spend per day.` 
-                    : `You're spending ${currencySymbol}${Math.round(averageDailySpend - dailyBudget)} too much per day.`
+                    ? `You have ₹${Math.round(dailyBudget)} left to spend per day.` 
+                    : `You're spending ₹${Math.round(averageDailySpend - dailyBudget)} too much per day.`
                   }
                 </p>
               </div>

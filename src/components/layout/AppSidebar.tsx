@@ -151,9 +151,9 @@ export default function AppSidebar() {
               <div className="flex items-center gap-3 px-3">
                 <Avatar>
                   <AvatarImage
-                    src="/public/suhani.jpeg"
+                    src="/lovable-uploads/37ef1ccd-9c2e-435b-b1a1-9a5673215955.png"
                     alt="Suhani"
-                    className="object-cover"
+                    className="object-cover object-center"
                   />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
@@ -167,7 +167,6 @@ export default function AppSidebar() {
         </div>
       </aside>
       
-
       {/* Backdrop for mobile */}
       {isMobile && mobileOpen && (
         <div 
