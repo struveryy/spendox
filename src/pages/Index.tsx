@@ -12,8 +12,8 @@ import BudgetStatus from "@/components/dashboard/BudgetStatus";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useTransactionStore } from "@/stores/transactionStore";
-import { useBudgetStore } from "@/stores/budgetStore";
+import { useTransactionStore } from "@/store/transactionStore";
+import { useBudgetStore } from "@/store/budgetStore";
 
 const Index = () => {
   const { toast } = useToast();
