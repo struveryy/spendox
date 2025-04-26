@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { BarChart3, Calendar, CreditCard, DollarSign, TrendingDown } from "lucide-react";
@@ -14,6 +15,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useTransactionStore } from "@/store/transactionStore";
 import { useBudgetStore } from "@/store/budgetStore";
+import { format } from "date-fns";
 
 const Index = () => {
   const { toast } = useToast();
@@ -51,6 +53,10 @@ const Index = () => {
   // Calculate potential savings
   const savingPotential = Math.max(0, settings.monthlyBudget - totalSpentThisMonth);
 
+  // Format current date 
+  const today = new Date();
+  const formattedDate = format(today, "MMM d, yyyy");
+
   useEffect(() => {
     toast({
       title: "Welcome back, Suhani!",
@@ -74,7 +80,7 @@ const Index = () => {
           <div className="flex items-center">
             <Badge variant="outline" className="text-xs bg-secondary">
               <Calendar className="h-3 w-3 mr-1" />
-              May 25, 2025
+              {formattedDate}
             </Badge>
           </div>
         </div>
