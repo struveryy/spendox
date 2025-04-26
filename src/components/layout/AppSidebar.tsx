@@ -101,7 +101,7 @@ export default function AppSidebar() {
             {(!collapsed || isMobile) && (
               <div className="flex items-center gap-2">
                 <img 
-                  src="/public/logospend.png" 
+                  src="/lovable-uploads/spendox.png" 
                   alt="SpendoX Logo" 
                   className="h-8 w-8 rounded-full object-cover"
                 />
