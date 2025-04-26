@@ -2,10 +2,10 @@
 import React from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
 import Analytics from "./pages/Analytics";
 import Transactions from "./pages/Transactions";
@@ -23,14 +23,12 @@ const App = () => (
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Helmet>
-              <title>SpendoX - Student Expense Tracker</title>
-              <meta name="description" content="SpendoX - Track and manage your student expenses with ease" />
-            </Helmet>
+        <BrowserRouter>
+          <Helmet>
+            <title>SpendoX - Student Expense Tracker</title>
+            <meta name="description" content="SpendoX - Track and manage your student expenses with ease" />
+          </Helmet>
+          <TooltipProvider>
             <div className="flex min-h-screen bg-background">
               <AppSidebar />
               <PageContainer>
@@ -46,8 +44,10 @@ const App = () => (
                 </Routes>
               </PageContainer>
             </div>
-          </BrowserRouter>
-        </TooltipProvider>
+          </TooltipProvider>
+          <Toaster />
+          <Sonner />
+        </BrowserRouter>
       </HelmetProvider>
     </QueryClientProvider>
   </React.StrictMode>
