@@ -166,6 +166,7 @@ export default function AppSidebar() {
           )}
         </div>
       </aside>
+      
 
       {/* Backdrop for mobile */}
       {isMobile && mobileOpen && (
