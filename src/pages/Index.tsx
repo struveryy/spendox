@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { BarChart3, Calendar, CreditCard, DollarSign, TrendingDown } from "lucide-react";
@@ -7,7 +6,6 @@ import { StatCard } from "@/components/ui/stat-card";
 import SpendingChart from "@/components/dashboard/SpendingChart";
 import SpendingOverview from "@/components/dashboard/SpendingOverview";
 import RecentTransactions from "@/components/dashboard/RecentTransactions";
-import UpcomingReminders from "@/components/dashboard/UpcomingReminders";
 import SavingSuggestion from "@/components/dashboard/SavingSuggestion";
 import BudgetStatus from "@/components/dashboard/BudgetStatus";
 import { Badge } from "@/components/ui/badge";
@@ -31,7 +29,6 @@ const Index = () => {
     )
     .reduce((sum: number, t: { amount: number }) => sum + t.amount, 0);
 
-  // Calculate month-over-month spending trend
   const lastMonthSpent = transactions
     .filter(t => 
       t.type === 'expense' && 
@@ -42,7 +39,6 @@ const Index = () => {
   const spendingTrend = lastMonthSpent ? 
     ((totalSpentThisMonth - lastMonthSpent) / lastMonthSpent) * 100 : 0;
 
-  // Calculate upcoming bills total
   const upcomingBills = transactions
     .filter(t => 
       t.type === 'expense' && 
@@ -50,10 +46,8 @@ const Index = () => {
     )
     .reduce((sum, t) => sum + t.amount, 0);
 
-  // Calculate potential savings
   const savingPotential = Math.max(0, settings.monthlyBudget - totalSpentThisMonth);
 
-  // Format current date 
   const today = new Date();
   const formattedDate = format(today, "MMM d, yyyy");
 
@@ -127,9 +121,8 @@ const Index = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
         <SpendingOverview />
-        <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="lg:col-span-2">
           <RecentTransactions />
-          <UpcomingReminders />
         </div>
       </div>
 
@@ -137,7 +130,6 @@ const Index = () => {
         <SavingSuggestion />
         <BudgetStatus className="md:col-span-1 animate-entrance delay-400" />
         
-        {/* Weekly Insight Card */}
         <Card className="animate-entrance delay-500">
           <CardContent className="p-6">
             <div className="flex items-center justify-between mb-4">
