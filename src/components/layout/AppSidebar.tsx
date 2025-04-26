@@ -153,6 +153,7 @@ export default function AppSidebar() {
                   <AvatarImage
                     src="/public/suhani.jpeg"
                     alt="Suhani"
+                    className="object-cover"
                   />
                   <AvatarFallback>S</AvatarFallback>
                 </Avatar>
