@@ -14,7 +14,7 @@ export const useBudgetStore = create<BudgetStore>()(
   persist(
     (set) => ({
       budgets: [
-        { category: "Food & Dining", amount: 0000, spent: 0, color: "bg-primary" },
+        { category: "Food & Dining", amount: 1000, spent: 0, color: "bg-primary" },
         { category: "Shopping", amount: 1000, spent: 0, color: "bg-lavender" },
         { category: "Transportation", amount: 1000, spent: 0, color: "bg-paleyellow" },
         { category: "Entertainment", amount: 1000, spent: 0, color: "bg-accent" },
