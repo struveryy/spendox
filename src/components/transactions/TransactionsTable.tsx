@@ -8,16 +8,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { getCurrencySymbol } from "@/utils/currencies";
 import { useTransactionStore } from "@/store/transactionStore";
 
-interface TransactionsTableProps {
-  currency?: string;
-}
-
-export function TransactionsTable({ currency = "USD" }: TransactionsTableProps) {
+export function TransactionsTable() {
   const transactions = useTransactionStore((state) => state.transactions);
-  const currencySymbol = getCurrencySymbol(currency);
 
   return (
     <div className="rounded-md border">
@@ -40,7 +34,7 @@ export function TransactionsTable({ currency = "USD" }: TransactionsTableProps) 
               <TableCell className={`text-right ${
                 transaction.type === 'income' ? 'text-green-600' : 'text-red-600'
               }`}>
-                {currencySymbol}{Math.abs(transaction.amount)}
+                ₹{Math.abs(transaction.amount)}
               </TableCell>
               <TableCell>
                 <Badge variant={transaction.type === 'income' ? 'default' : 'secondary'}>

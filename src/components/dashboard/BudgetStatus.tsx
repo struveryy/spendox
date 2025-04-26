@@ -1,20 +1,24 @@
+
 import { ArrowRight, DollarSign, AlertTriangle } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import { getCurrencySymbol } from "@/utils/currencies";
-
-interface BudgetStatusProps {
-  className?: string;
-  currency?: string;
-}
+import { useBudgetStore } from "@/store/budgetStore";
+import { useTransactionStore } from "@/store/transactionStore";
 
 export default function BudgetStatus({ className }: { className?: string }) {
-  // Budget data
-  const budget = 12000;
-  const spent = 8400;
+  const { settings } = useBudgetStore();
+  const { transactions } = useTransactionStore();
+  
+  // Calculate spent amount for current month
+  const currentMonth = new Date().getMonth();
+  const spent = transactions
+    .filter(t => t.type === 'expense' && new Date(t.date).getMonth() === currentMonth)
+    .reduce((sum, t) => sum + Math.abs(t.amount), 0);
+    
+  const budget = settings.monthlyBudget;
   const remaining = budget - spent;
   const percentageSpent = (spent / budget) * 100;
   const daysLeftInMonth = 8;
@@ -23,8 +27,6 @@ export default function BudgetStatus({ className }: { className?: string }) {
   const dailyBudget = remaining / daysLeftInMonth;
   const averageDailySpend = spent / (30 - daysLeftInMonth);
   const isOnTrack = dailyBudget >= averageDailySpend;
-  
-  const currencySymbol = getCurrencySymbol("INR");
   
   return (
     <Card className={cn(className)}>

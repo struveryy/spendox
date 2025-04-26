@@ -58,7 +58,7 @@ export function AddTransactionForm({ onSuccess }: AddTransactionFormProps) {
 
     toast({
       title: "Transaction added",
-      description: `Added ${values.description} for ${values.amount}`,
+      description: `Added ${values.description} for ₹${values.amount}`,
     });
     
     onSuccess();
