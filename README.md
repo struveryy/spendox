@@ -1,12 +1,11 @@
-# Welcome to my project
+**Spendox-A digital Expense tracker**
+An advanced Expense tracker for managing the student finances.
 
-**Use GitHub Codespaces**
+Made by Suhani, Aditya, Prince Verma and Alwyn Charles From B.tech CSE Core Section D
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Link for the video:- https://drive.google.com/file/d/169KMqzso8LuF7PudqiqCbYtXCrzsoKMv/view?usp=sharing
+
+Link for the project:- https://spendox.netlify.app
 
 ## What technologies are used for this project?
 
@@ -17,3 +16,5 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+
+
